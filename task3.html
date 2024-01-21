@@ -1,0 +1,117 @@
+package codsoft;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+class Student {
+    private String Studentname;
+    private int rollNo;
+    private String rank;
+    public Student(String name, int rollNo, String rank) {
+        this.Studentname = name;
+        this.rollNo = rollNo;
+        this.rank = rank;
+    }
+    public String getName() {
+        return Studentname;
+    }
+    public int getRollNumber() {
+        return rollNo;
+    }
+    public String getrank() {
+        return rank;
+    }
+    public String toString() {
+        return "Name:"+ Studentname+",Roll No:"+rollNo+",rank: " +rank;
+    }
+}
+class StudentManagementSystem {
+    private List<Student> students = new ArrayList<>();
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+    public void removeStudent(Student student) {
+        students.remove(student);
+    }
+    public List<Student> searchStudent(String keyword) {
+        List<Student> result = new ArrayList<>();
+        for (Student student : students) {
+            if (student.getName().contains(keyword) || Integer.toString(student.getRollNumber()).contains(keyword) || student.getGrade().contains(keyword)) {
+                result.add(student);
+            }
+        }
+        return result;
+    }
+    public void displayAllStudents() {
+        for (Student student : students) {
+            System.out.println(student);
+        }
+    }
+}
+public class StudentManagementSystemApp {
+	public static void main(String[] args) {
+		 StudentManagementSystem sms = new StudentManagementSystem();
+	        Scanner scanner = new Scanner(System.in);
+	        while (true) {
+	            System.out.println("Student Management System Menu:");
+	            System.out.println("1. Add a new student");
+	            System.out.println("2. Remove a student");
+	            System.out.println("3. Search for a student");
+	            System.out.println("4. Display all students");
+	            System.out.println("5. Exit");
+	            System.out.print("Enter your choice: ");
+	            int choice = scanner.nextInt();
+	            scanner.nextLine(); 
+	            switch(choice){
+    case 1:
+	                    System.out.print("Enter Studentname: ");
+	                    String name = scanner.nextLine();
+	                    System.out.print("Enter roll no: ");
+	                    int rollNo = scanner.nextInt();
+	                    scanner.nextLine(); 
+	                    System.out.print("Enter grade: ");
+	                    String rank=scanner.nextLine();
+	                    Student newStudent=new Student(name,rollNo,rank);
+	                    sms.addStudent(newStudent);
+	                    break;
+	  case 2:
+	                    System.out.print("Enter the Studentname or roll no of the student to remove: ");
+	                    String removeKeyword = scanner.nextLine();
+	                    List<Student> studentsToRemove = sms.searchStudent(removeKeyword);
+	                    if (!studentsToRemove.isEmpty()) {
+	                        for (Student student : studentsToRemove) {
+	                            sms.removeStudent(student);
+	                            System.out.println("Removed: " + student);
+	                        }
+	                    } else {
+	                        System.out.println("Student not found.");
+	                    }
+	                    break;
+	  case 3:
+	                    System.out.print("Enter search keyword: ");
+	                    String searchKeyword = scanner.nextLine();
+	                    List<Student> searchResults = sms.searchStudent(searchKeyword);
+	                    if (!searchResults.isEmpty()) {
+	                        System.out.println("Search Results:");
+	                        for (Student student : searchResults) {
+	                            System.out.println(student);
+	                        }
+	                    } else {
+	                        System.out.println("No matching students found.");
+	                    }
+	                    break;
+	   case 4:
+	                    System.out.println("All Students:");
+	                    sms.displayAllStudents();
+	                    break;
+	   case 5:
+	                    System.out.println("Exiting Student Management System.");
+	                    scanner.close();
+	                    System.exit(0);
+	                default:
+	                    System.out.println("Invalid choice. Please enter a valid option.");
+	                    break;
+	            }
+	        }
+	    }
+	
+	}

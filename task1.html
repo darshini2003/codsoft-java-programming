@@ -1,0 +1,26 @@
+package codsoft;
+import java.util.Scanner;
+public class NumberGame {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int myno=(int)(Math.random()*100);
+		int userno;
+		do {
+		    System.out.println("guess my no");
+		    userno = sc.nextInt();
+		    if(userno==myno){
+		        System.out.println("congratulations");
+		        break;
+		    }
+		    else if(userno>myno){
+		        System.out.println("your no is too large");
+		    }
+		    else{
+		        System.out.println("your no is too small");
+		    }
+		} while(userno>=0);
+		System.out.println("my no was"+ myno);
+	}
+
+}
